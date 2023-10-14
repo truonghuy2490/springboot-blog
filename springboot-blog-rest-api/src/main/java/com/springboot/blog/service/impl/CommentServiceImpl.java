@@ -9,6 +9,7 @@ import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.repository.CommentRepository;
 import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.service.CommentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ public class CommentServiceImpl implements CommentService {
     CommentRepository commentRepository;
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    ModelMapper modelMapper;
 
     @Override
     public CommentDTO createComment(Long postId, CommentDTO commentDTO) {
@@ -106,19 +109,19 @@ public class CommentServiceImpl implements CommentService {
     }
 
     private Comment mapEntity(CommentDTO commentDTO){
-        Comment comments = new Comment();
-        comments.setId(commentDTO.getId());
-        comments.setName(commentDTO.getName());
-        comments.setEmail(commentDTO.getEmail());
-        comments.setBody(commentDTO.getBody());
-        return comments;
+//        Comment comments = new Comment();
+//        comments.setId(commentDTO.getId());
+//        comments.setName(commentDTO.getName());
+//        comments.setEmail(commentDTO.getEmail());
+//        comments.setBody(com  mentDTO.getBody());
+        return modelMapper.map(commentDTO, Comment.class);
     }
     private CommentDTO mapToDTO(Comment comment){
-        CommentDTO commentDTO = new CommentDTO();
-        commentDTO.setId(comment.getId());
-        commentDTO.setName(comment.getName());
-        commentDTO.setEmail(comment.getEmail());
-        commentDTO.setBody(comment.getBody());
-        return commentDTO;
+//        CommentDTO commentDTO = new CommentDTO();
+//        commentDTO.setId(comment.getId());
+//        commentDTO.setName(comment.getName());
+//        commentDTO.setEmail(comment.getEmail());
+//        commentDTO.setBody(comment.getBody());
+        return modelMapper.map(comment, CommentDTO.class);
     }
 }
